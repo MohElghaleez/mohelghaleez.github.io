@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="مكتبة شاملة لمؤلفات ودروس الشيخ محمد الغليظ - السلاسل العلمية ودورات أبجديات أونلاين وجدول المحاسبة" />
+  <title>محمد الغليظ | مكتبة السلاسل العلمية ودورات أبجديات</title>
+
+  <!-- أيقونة تبويب المتصفح (Favicon) -->
+  <link rel="icon" type="image/png" href="logo.png" />
+
+  <!-- الخطوط الرسمية من Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       1. CSS Variables & Theme Engine (System Design)
+       ============================================================ */
+    :root {
+      --bg-main: #0A0E17;
+      --bg-slate: #0F172A;
+      --hero-gradient: radial-gradient(circle at top right, #1E293B 0%, #0A0E17 100%);
+      --card-bg: #111827;
+      --card-border: #1F2937;
+      --text-white: #FFFFFF;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      --accent-gold: #D4AF37;
+      --search-bg: rgba(17, 24, 39, 0.6);
+      --search-border: rgba(148, 163, 184, 0.25);
+      --glass: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --header-bg: rgba(10, 14, 23, 0.95);
+      --footer-bg: #070A12;
+      --badge-bg: rgba(10, 14, 23, 0.85);
+
+      /* متغيّرات تصميم جدول المحاسبة المتقدم */
+      --acc-container-bg: #0d1322;
+      --acc-card-bg: #1e101a;
+      --acc-card-border: #581c24;
+      --acc-card-active-bg: #064e3b;
+      --acc-card-active-border: #10b981;
+
+      --radius: 12px;
+      --radius-lg: 16px;
+    }
+
+    [data-theme="light"] {
+      --bg-main: #F8FAFC;
+      --bg-slate: #F1F5F9;
+      --hero-gradient: radial-gradient(circle at top right, #E2E8F0 0%, #F8FAFC 100%);
+      --card-bg: #FFFFFF;
+      --card-border: #E2E8F0;
+      --text-white: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #64748B;
+      --accent-gold: #B48A16;
+      --search-bg: rgba(255, 255, 255, 0.8);
+      --search-border: rgba(203, 213, 225, 0.8);
+      --glass: rgba(15, 23, 42, 0.06);
+      --glass-border: rgba(15, 23, 42, 0.12);
+      --header-bg: rgba(248, 250, 252, 0.95);
+      --footer-bg: #E2E8F0;
+      --badge-bg: rgba(255, 255, 255, 0.9);
+
+      --acc-container-bg: #F1F5F9;
+      --acc-card-bg: #FEE2E2;
+      --acc-card-border: #FCA5A5;
+      --acc-card-active-bg: #D1FAE5;
+      --acc-card-active-border: #10B981;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Tajawal', 'Readex Pro', system-ui, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-white);
+      line-height: 1.7;
+      min-height: 100vh;
+      direction: rtl;
+      text-align: right;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ============================================================
+       Utility Classes (إخفاء العناصر)
+       ============================================================ */
+    .hidden {
+      display: none !important;
+    }
+
+    /* ============================================================
+       2. Fixed Sticky Header
+       ============================================================ */
+    .site-header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1000;
+      background: var(--header-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--card-border);
+      transition: background-color 0.3s ease;
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--text-white);
+    }
+
+    .header-logo-img {
+      height: 44px;
+      width: auto;
+      border-radius: 8px;
+      background: #FFFFFF;
+      padding: 4px 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      transition: transform 0.2s ease;
+    }
+
+    .logo-text span {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .search-wrapper {
+      flex: 1;
+      max-width: 360px;
+      position: relative;
+      margin-inline-start: auto;
+    }
+
+    .search-wrapper::before {
+      content: "🔍";
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      font-size: 0.95rem;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 10px 42px 10px 16px;
+      border: 1px solid var(--search-border);
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: var(--search-bg);
+      color: var(--text-white);
+      transition: all 0.25s ease;
+    }
+
+    #searchInput:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+
+    .btn-action {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--text-white);
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-action:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-1px);
+    }
+
+    /* قائمة التواصل مع الشيخ المنبثقة في الهيدر */
+    .sheikh-social-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 0;
+      width: 260px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 12px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      z-index: 1005;
+      animation: fadeIn 0.25s ease forwards;
+    }
+
+    .sheikh-social-wrapper.open .sheikh-social-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* ============================================================
+       3. Hero Banner & Interactive Cards
+       ============================================================ */
+    .hero {
+      background: var(--hero-gradient);
+      color: var(--text-white);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--card-border);
+      padding-top: 70px;
+    }
+
+    .hero-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 56px 24px 64px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-content { max-width: 620px; }
+
+    .hero-header-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .hero-avatar-lg {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent-gold);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .hero-name { font-size: clamp(2.3rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.1; }
+    .hero-subtitle { font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-secondary); margin-bottom: 20px; }
+
+    /* بطاقة أبجديات التفاعلية */
+    .abjadiyat-interactive-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+      max-width: 540px;
+    }
+
+    .abjadiyat-compact-card {
+      background: var(--glass);
+      border: 1px solid var(--accent-gold);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.25s ease;
+    }
+
+    .abjadiyat-compact-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+    }
+
+    .abjadiyat-logo-box {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ffffff;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .abjadiyat-logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .abjadiyat-compact-text { flex: 1; }
+
+    .abjadiyat-compact-text h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      line-height: 1.2;
+    }
+
+    .abjadiyat-compact-text p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .abjadiyat-arrow-icon {
+      font-size: 0.9rem;
+      color: var(--accent-gold);
+      transition: transform 0.3s ease;
+    }
+
+    .abjadiyat-interactive-wrapper.open .abjadiyat-arrow-icon {
+      transform: rotate(180deg);
+    }
+
+    /* قائمة شبكات التواصل المنبثقة لأبجديات */
+    .abjadiyat-social-menu {
+      display: none;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding: 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      animation: fadeIn 0.25s ease forwards;
+    }
+
+    .abjadiyat-interactive-wrapper.open .abjadiyat-social-menu {
+      display: grid;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .social-link-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      color: var(--text-white);
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .social-link-item svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .social-link-item:hover {
+      border-color: var(--accent-gold);
+      background: rgba(212, 175, 55, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .hero-quote {
+      font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+      color: var(--accent-gold);
+      font-weight: 700;
+      line-height: 1.9;
+      padding: 16px 20px;
+      background: var(--glass);
+      border-right: 3px solid var(--accent-gold);
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 24px;
+    }
+
+    /* Achievement Bar */
+    .achievement-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      max-width: 540px;
+    }
+
+    .achievement-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .achievement-progress-bg {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .achievement-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-gold), #10B981);
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    /* Featured Card */
+    .featured-card {
+      width: 340px;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      position: relative;
+      transition: transform 0.35s ease;
+      display: block;
+    }
+
+    .featured-card:hover { transform: translateY(-4px); }
+    .featured-media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; }
+    .featured-media img { width: 100%; height: 100%; object-fit: cover; }
+
+    .featured-label {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--badge-bg);
+      backdrop-filter: blur(4px);
+      color: var(--accent-gold);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1px solid var(--glass-border);
+    }
+
+    .featured-body { padding: 20px; text-align: center; }
+    .featured-title { font-size: 1.5rem; font-weight: 800; color: var(--text-white); margin-bottom: 16px; }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--text-white);
+      color: var(--bg-main);
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 1rem;
+      transition: all 0.25s ease;
+    }
+
+    /* ============================================================
+       4. Series Grid & No Results Message
+       ============================================================ */
+    .main-section { max-width: 1400px; margin: 0 auto; padding: 56px 24px 80px; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: var(--text-white); display: flex; align-items: center; gap: 12px; }
+    .section-title::before { content: ""; width: 5px; height: 32px; background: linear-gradient(to bottom, var(--accent-gold), var(--text-secondary)); border-radius: 4px; }
+    
+    .series-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+    .series-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .series-card.watched::after {
+      content: "✓ شوهدت";
+      position: absolute;
+      bottom: 60px;
+      left: 12px;
+      background: #10B981;
+      color: #FFF;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 999px;
+      z-index: 4;
+    }
+
+    .series-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); border-color: var(--accent-gold); }
+    .card-media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; }
+    .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .series-card:hover .card-media img { transform: scale(1.08); }
+
+    .share-icon {
+      position: absolute; top: 10px; left: 10px; width: 34px; height: 34px; border-radius: 50%;
+      background: var(--glass); backdrop-filter: blur(8px); border: 1px solid var(--glass-border);
+      color: var(--text-white); display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; cursor: pointer; z-index: 3; transition: all 0.2s ease;
+    }
+
+    .play-badge {
+      position: absolute; top: 10px; right: 10px; background: var(--badge-bg);
+      backdrop-filter: blur(4px); color: var(--text-white); padding: 4px 10px;
+      border-radius: 999px; font-size: 0.78rem; font-weight: 700; border: 1px solid var(--glass-border); z-index: 3;
+    }
+
+    .card-title-bar { background: var(--card-bg); padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid var(--card-border); }
+    .card-title { font-size: 1.15rem; font-weight: 800; color: var(--text-white); flex: 1; }
+
+    .no-results {
+      text-align: center;
+      padding: 48px 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      margin-top: 24px;
+    }
+    .no-results h3 { font-size: 1.4rem; font-weight: 800; color: var(--accent-gold); margin-bottom: 8px; }
+    .no-results p { color: var(--text-secondary); font-size: 0.95rem; }
+
+    /* ============================================================
+       5. Accountability Dashboard Modal
+       ============================================================ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+    .modal-card-dashboard {
+      background: var(--bg-main);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      max-width: 950px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 28px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-card-dashboard { transform: translateY(0); }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 16px;
+    }
+
+    .modal-title { font-size: 1.5rem; font-weight: 800; color: var(--text-white); }
+    .close-modal { background: none; border: none; font-size: 1.8rem; color: var(--text-secondary); cursor: pointer; }
+
+    /* Progress Box Modal */
+    .acc-progress-box {
+      background: var(--acc-container-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .acc-progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
+
+    .acc-percentage { font-size: 1.5rem; color: #EF4444; transition: color 0.3s ease; }
+
+    .acc-progress-bg {
+      width: 100%;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .acc-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #EF4444, #10B981);
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    /* Category Group & Grid */
+    .acc-category-group {
+      background: var(--acc-container-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .acc-category-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 16px; color: var(--text-white); }
+    .acc-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+    .acc-task-card {
+      background: var(--acc-card-bg);
+      border: 1.5px solid var(--acc-card-border);
+      border-radius: 14px;
+      padding: 16px 14px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 90px;
+      position: relative;
+    }
+
+    .acc-task-card:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.2);
+    }
+
+    .acc-task-card.active {
+      background: var(--acc-card-active-bg) !important;
+      border-color: var(--acc-card-active-border) !important;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35) !important;
+    }
+
+    .acc-task-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; color: var(--text-white); }
+    [data-theme="light"] .acc-task-card.active .acc-task-title { color: #064E3B; }
+
+    .acc-task-meta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-size: 0.85rem;
+      color: #60A5FA;
+      font-weight: 800;
+    }
+
+    .acc-info-icon { color: var(--text-muted); font-size: 0.8rem; }
+
+    .site-footer { background: var(--footer-bg); color: var(--text-secondary); padding: 40px 24px; text-align: center; border-top: 1px solid var(--card-border); }
+    .footer-divider { width: 60px; height: 2px; background: var(--accent-gold); margin: 16px auto; border-radius: 2px; }
+
+    @media (max-width: 1024px) {
+      .series-grid { grid-template-columns: repeat(3, 1fr); }
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-header-brand { justify-content: center; }
+      .hero-quote, .achievement-card, .abjadiyat-interactive-wrapper { margin: 0 auto 20px; }
+      .featured-card { margin: 0 auto; width: 100%; max-width: 420px; }
+      .acc-cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .series-grid { grid-template-columns: repeat(2, 1fr); }
+      .header-inner { flex-wrap: wrap; }
+      .search-wrapper { order: 3; max-width: 100%; width: 100%; margin-top: 8px; }
+      .acc-cards-grid { grid-template-columns: 1fr; }
+      .abjadiyat-social-menu { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 420px) { .series-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Sticky Header -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="#" class="logo" aria-label="الشيخ محمد الغليظ">
+        <img src="logo.png" alt="لوجو محمد الغليظ" class="header-logo-img" />
+        <span class="logo-text">
+          محمد الغليظ
+          <span>مكتبة السلاسل العلمية</span>
+        </span>
+      </a>
+
+      <div class="search-wrapper">
+        <input type="search" id="searchInput" placeholder="🔍 ابحث في السلاسل العلمية..." autocomplete="off" />
+      </div>
+
+      <div class="header-actions">
+        <!-- زر فتح قائمة تواصل مع الشيخ -->
+        <div class="sheikh-social-wrapper" id="sheikhSocialWrapper">
+          <button class="btn-action" id="sheikhSocialBtn" type="button">
+            <span>🌐</span> <span>تواصل مع الشيخ</span>
+          </button>
+          
+          <div class="sheikh-social-menu">
+            <a href="https://facebook.com/MohElghaleez" target="_blank" rel="noopener noreferrer" class="social-link-item">
+              <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Facebook
+            </a>
+            <a href="https://instagram.com/mohelghaleez" target="_blank" rel="noopener noreferrer" class="social-link-item">
+              <svg viewBox="0 0 24 24" fill="#E4405F"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              Instagram
+            </a>
+            <a href="https://tiktok.com/@moh_elghaleez" target="_blank" rel="noopener noreferrer" class="social-link-item">
+              <svg viewBox="0 0 24 24" fill="#000000"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.82.57-1.31 1.56-1.31 2.56.02 1.01.54 1.96 1.39 2.47.88.54 2 .57 2.92.11.96-.46 1.6-1.46 1.63-2.52.01-4.88.01-9.76.01-14.64z"/></svg>
+              TikTok
+            </a>
+            <a href="https://t.me/moh_elghaleez" target="_blank" rel="noopener noreferrer" class="social-link-item">
+              <svg viewBox="0 0 24 24" fill="#26A5E4"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.562 8.161c-.18.717-.962 4.084-1.362 5.411-.168.56-.421.748-.663.766-.525.043-.923-.348-1.433-.682-.797-.521-1.247-.845-2.021-1.355-.895-.59-.315-.914.195-1.444.134-.138 2.457-2.25 2.502-2.443.006-.024.011-.115-.043-.162-.054-.047-.133-.031-.19-.018-.08.018-1.358.864-3.834 2.536-.363.249-.691.371-.984.364-.323-.007-.945-.183-1.408-.333-.568-.184-1.02-.282-.98-.595.021-.163.246-.33.676-.502 2.657-1.155 4.43-1.916 5.318-2.285 2.53-.1.05 3.056 1.027 3.056 1.027z"/></svg>
+              Telegram
+            </a>
+            <a href="https://soundcloud.com/mohelghaleez" target="_blank" rel="noopener noreferrer" class="social-link-item">
+              <svg viewBox="0 0 24 24" fill="#FF5500"><path d="M1.175 12.225c-.048 0-.096.012-.138.036L0 12.873v5.619l1.037.612c.042.024.09.036.138.036.114 0 .207-.093.207-.207v-6.501c0-.114-.093-.207-.207-.207zm1.614-.804c-.054 0-.108.015-.156.045l-1.047.63v7.35l1.047.63c.048.03.102.045.156.045.129 0 .234-.105.234-.234v-8.232c0-.129-.105-.234-.234-.234zm1.614-.852c-.06 0-.12.018-.171.051l-1.032.645v9.102l1.032.645c.051.033.111.051.171.051.144 0 .261-.117.261-.261v-9.972c0-.144-.117-.261-.261-.261zm1.614-.738c-.066 0-.132.021-.186.06l-1.017.657v10.638l1.017.657c.054.039.12.06.186.06.159 0 .288-.129.288-.288V9.119c0-.159-.129-.288-.288-.288zm1.614-.804c-.072 0-.144.024-.201.066l-1.002.675v12.3l1.002.675c.057.042.129.066.201.066.174 0 .315-.141.315-.315V8.348c0-.174-.141-.315-.315-.315zm1.614-.993c-.078 0-.156.027-.219.075l-.987.696v14.346l.987.696c.063.048.141.075.219.075.189 0 .342-.153.342-.342V7.375c0-.189-.153-.342-.342-.342zm1.614.117c-.084 0-.168.03-.234.084l-.972.711v14.1l.972.711c.066.054.15.084.234.084.204 0 .369-.165.369-.369V7.126c0-.204-.165-.369-.369-.369zm1.614-1.284c-.09 0-.18.033-.249.093l-.957.729v16.746l.957.729c.069.06.159.093.249.093.219 0 .396-.177.396-.396V6.237c0-.219-.177-.396-.396-.396zm14.307 8.358c-.462-2.883-2.937-5.07-5.931-5.07-.63 0-1.233.1-1.8.285V4.689c0-.234-.189-.423-.423-.423-.096 0-.192.036-.264.099l-.942.747v18.729l.942.747c.072.063.168.099.264.099.234 0 .423-.189.423-.423v-4.467c.567.186 1.17.285 1.8.285 3.513 0 6.363-2.85 6.363-6.363 0-2.94-1.998-5.409-4.432-6.075z"/></svg>
+              SoundCloud
+            </a>
+            <a href="https://twitter.com/MohElghaleez" target="_blank" rel="noopener noreferrer" class="social-link-item">
+              <svg viewBox="0 0 24 24" fill="#1DA1F2"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.936 9.936 0 0024 4.59z"/></svg>
+              Twitter / X
+            </a>
+          </div>
+        </div>
+
+        <!-- زر فتح لوحة جدول المحاسبة -->
+        <button class="btn-action" id="openAccountabilityBtn" type="button">
+          <span>📋</span> <span>جدول المحاسبة</span>
+        </button>
+
+        <!-- زر التبديل الليلي/النهاري -->
+        <button class="btn-action" id="themeToggleBtn" type="button" aria-label="تغيير المظهر">
+          <span id="themeIcon">🌙</span> <span id="themeText">الوضع الليلي</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero" aria-label="ترحيب">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-header-brand">
+          <img src="sheikh_photo.png" alt="الشيخ محمد الغليظ" class="hero-avatar-lg" />
+          <h1 class="hero-name">محمد الغليظ</h1>
+        </div>
+        <p class="hero-subtitle">مكتبة شاملة لمؤلفات ودروس الشيخ محمد الغليظ ودورات أبجديات</p>
+
+        <!-- بطاقة أبجديات التفاعلية وعرض شبكات التواصل -->
+        <div class="abjadiyat-interactive-wrapper" id="abjadiyatWrapper">
+          <div class="abjadiyat-compact-card" id="abjadiyatBtn">
+            <div class="abjadiyat-logo-box">
+              <img src="abjadiyat.jpg" alt="لوجو أبجديات" onerror="this.src='logo.png'" />
+            </div>
+            <div class="abjadiyat-compact-text">
+              <h4>دورات أبجديات أونلاين</h4>
+              <p>اضغط لمتابعة حسابات أبجديات الرسمية 🔗</p>
+            </div>
+            <span class="abjadiyat-arrow-icon">▼</span>
+          </div>
+
+          <!-- القائمة المنبثقة للروابط -->
+          <div class="abjadiyat-social-menu">
+            <a href="https://facebook.com/AbgdOnline" target="_blank" rel="noopener noreferrer" class="social-link-item">
+              <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Facebook
+            </a>
+            <a href="https://instagram.com/abgdonline" target="_blank" rel="noopener noreferrer" class="social-link-item">
+              <svg viewBox="0 0 24 24" fill="#E4405F"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              Instagram
+            </a>
+            <a href="https://tiktok.com/@abgdonline" target="_blank" rel="noopener noreferrer" class="social-link-item">
+              <svg viewBox="0 0 24 24" fill="#000000"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.82.57-1.31 1.56-1.31 2.56.02 1.01.54 1.96 1.39 2.47.88.54 2 .57 2.92.11.96-.46 1.6-1.46 1.63-2.52.01-4.88.01-9.76.01-14.64z"/></svg>
+              TikTok
+            </a>
+            <a href="https://t.me/AbgOnline" target="_blank" rel="noopener noreferrer" class="social-link-item">
+              <svg viewBox="0 0 24 24" fill="#26A5E4"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.562 8.161c-.18.717-.962 4.084-1.362 5.411-.168.56-.421.748-.663.766-.525.043-.923-.348-1.433-.682-.797-.521-1.247-.845-2.021-1.355-.895-.59-.315-.914.195-1.444.134-.138 2.457-2.25 2.502-2.443.006-.024.011-.115-.043-.162-.054-.047-.133-.031-.19-.018-.08.018-1.358.864-3.834 2.536-.363.249-.691.371-.984.364-.323-.007-.945-.183-1.408-.333-.568-.184-1.02-.282-.98-.595.021-.163.246-.33.676-.502 2.657-1.155 4.43-1.916 5.318-2.285 2.53-.1.05 3.056 1.027 3.056 1.027z"/></svg>
+              Telegram
+            </a>
+          </div>
+        </div>
+
+        <blockquote class="hero-quote">
+          "خطواتك هي الطريق إلى الجنة... فكن على صراط مستقيم..."
+        </blockquote>
+
+        <!-- بطاقة الإنجازات وتقدم المشاهدة -->
+        <div class="achievement-card">
+          <div class="achievement-header">
+            <span>🏆 مستوى الإنجاز: <strong id="achievementTitle">طالب علم مبتدئ</strong></span>
+            <span><strong id="watchedCount">0</strong> / <strong id="totalSeriesCount">30</strong> سلسلة</span>
+          </div>
+          <div class="achievement-progress-bg">
+            <div class="achievement-progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+      </div>
+
+      <a href="https://www.youtube.com/watch?v=aDC8gZf9YpE&list=PLgqtKVxUxe2pzPJogmu7pKQATSI4eIBAb" target="_blank" rel="noopener noreferrer" class="featured-card" data-id="17" aria-label="ابدأ سلسلة كلمات">
+        <div class="featured-media">
+          <img src="https://img.youtube.com/vi/aDC8gZf9YpE/hqdefault.jpg" alt="سلسلة كلمات" loading="lazy" />
+          <span class="featured-label">✨ أحدث السلاسل</span>
+        </div>
+        <div class="featured-body">
+          <h2 class="featured-title">كلمات</h2>
+          <span class="cta-button">📖 ابدأ السلسلة</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main-section">
+    <div class="section-header">
+      <h2 class="section-title">السلاسل العلمية</h2>
+      <div class="results-info">
+        عرض <strong id="visibleCount">0</strong> من <strong id="totalCount">0</strong> سلسلة
+      </div>
+    </div>
+
+    <div class="series-grid" id="seriesGrid" role="list"></div>
+
+    <!-- رسالة عدم وجود نتائج (مخفية تلقائياً بفضل الكلاس hidden) -->
+    <div class="no-results hidden" id="noResults">
+      <h3>لا توجد نتائج مطابقة</h3>
+      <p>لم نعثر على سلاسل تطابق بحثك. جرّب البحث بكلمة أخرى.</p>
+    </div>
+  </main>
+
+  <!-- Dashboard Modal (جدول المحاسبة اليومي الاحترافي) -->
+  <div class="modal-overlay" id="accountabilityModal">
+    <div class="modal-card-dashboard">
+      <div class="modal-header">
+        <h3 class="modal-title">📋 جدول المحاسبة اليومي الاحترافي</h3>
+        <button class="close-modal" id="closeAccountabilityBtn">&times;</button>
+      </div>
+
+      <!-- مؤشر إجمالي التقدم -->
+      <div class="acc-progress-box">
+        <div class="acc-progress-header">
+          <span class="acc-percentage" id="accProgressPercentage">0%</span>
+          <span>إجمالي التقدم اليومي</span>
+        </div>
+        <div class="acc-progress-bg">
+          <div class="acc-progress-fill" id="accProgressBarFill"></div>
+        </div>
+      </div>
+
+      <!-- الحاوية الديناميكية لبطاقات المحاسبة -->
+      <div id="accountabilityDashboardApp"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-logo">📖 محمد الغليظ — مكتبة السلاسل العلمية ودورات أبجديات</div>
+      <div class="footer-divider"></div>
+      <p class="footer-text">نسأل الله أن ينفع بهذا العلم صاحبه وجميع المتعلمين.</p>
+      <p class="footer-copy">© <span id="year"></span> مكتبة الشيخ محمد الغليظ — جميع الحقوق محفوظة</p>
+    </div>
+  </footer>
+
+  <script>
+    // ============================================================
+    // 1. Data Schema
+    // ============================================================
+    const seriesData = [
+      { id: 17, title: "كلمات", ytId: "aDC8gZf9YpE", link: "https://www.youtube.com/watch?v=aDC8gZf9YpE&list=PLgqtKVxUxe2pzPJogmu7pKQATSI4eIBAb" },
+      { id: 18, title: "قصتنا (البدايات)", ytId: "bGttHH_u8IY", link: "https://www.youtube.com/watch?v=bGttHH_u8IY&list=PLTprZ3I7kEcc" },
+      { id: 7,  title: "الخطة 248", ytId: "hnIW6bN_pNE", link: "https://www.youtube.com/watch?v=hnIW6bN_pNE&list=PLgqtKVxUxe2o4lkPwnIB830yNZcfukLg2" },
+      { id: 5,  title: "خطوات وفرجات", ytId: "KmT-FN0aW90", link: "https://www.youtube.com/watch?v=KmT-FN0aW90&list=PLgqtKVxUxe2pVu8HKkGgr5WtnBvvCTrc" },
+      { id: 10, title: "قصتنا 3", ytId: "Nx0p8yW7PVY", link: "https://www.youtube.com/watch?v=Nx0p8yW7PVY&list=PLgqtKVxUxe2oZnebcOhZ2En0jbHFR4ax_" },
+      { id: 9,  title: "بين قوسين", ytId: "hFRhIt7s31M", link: "https://www.youtube.com/watch?v=hFRhIt7s31M&list=PLgqtKVxUxe2oraxfssCNCSQCN_Xq8Er_H" },
+      { id: 15, title: "لماذا لا ترى عيوبك", ytId: "izf4CTgMlVM", link: "https://www.youtube.com/watch?v=izf4CTgMlVM&list=PLgqtKVxUxe2qhizEM1XnEEAnWiFbc-rFR" },
+      { id: 4,  title: "قصتنا 2", ytId: "CDgCwvnKSf0", link: "https://www.youtube.com/watch?v=CDgCwvnKSf0&list=PLgqtKVxUxe2oh2GH5-1V-trgNXPofNhEu" },
+      { id: 12, title: "إرشادات البدايات", ytId: "k9s_qwlYWwI", link: "https://www.youtube.com/watch?v=k9s_qwlYWwI&list=PLgqtKVxUxe2pia8TM0INCvt9f8SCiYGdP" },
+      { id: 8,  title: "للكبار فقط", ytId: "E0X3SOP22xo", link: "https://www.youtube.com/watch?v=E0X3SOP22xo&list=PLgqtKVxUxe2r0HHEKx3OhZsmhv1ikf-Sf" },
+      { id: 16, title: "أدب الصحبة", ytId: "gwQ-QBNAIS8", link: "https://www.youtube.com/watch?v=gwQ-QBNAIS8&list=PLgqtKVxUxe2pNH2NC31_tQY2Iap3oRvqw" },
+      { id: 13, title: "بيت في رجل", ytId: "IPyQCjO_f5w", link: "https://www.youtube.com/watch?v=IPyQCjO_f5w&list=PLgqtKVxUxe2p7DyLYBoObaAEc5CsSfqZM" },
+      { id: 6,  title: "عاطف وعواطف", ytId: "7ccAnfeaPMI", link: "https://www.youtube.com/watch?v=7ccAnfeaPMI&list=PLgqtKVxUxe2qpel-4w_86GcoWTMmjxPc-" },
+      { id: 3,  title: "قصتنا 1", ytId: "XlWZO0hIdJg", link: "https://www.youtube.com/watch?v=XlWZO0hIdJg&list=PLgqtKVxUxe2qtBb9pBh2tlS-_8ahW7pbo" },
+      { id: 11, title: "من صومعة", ytId: "yMrbaelGEvQ", link: "https://www.youtube.com/watch?v=yMrbaelGEvQ&list=PLgqtKVxUxe2qEh4r4P3MZFLiRT1kjwGtf" },
+      { id: 14, title: "هذه أخلاقنا", ytId: "lOQmKtx48uE", link: "https://www.youtube.com/watch?v=lOQmKtx48uE&list=PLgqtKVxUxe2rlwiOjm2m4ancDGvbukEEF" },
+      { id: 2,  title: "اعرف ربك", ytId: "Gvyp9YW24fU", link: "https://www.youtube.com/watch?v=Gvyp9YW24fU&list=PLgqtKVxUxe2o2R94qDb1jEaPG9u0yygyf" },
+      { id: 1,  title: "اعرف نبيك", ytId: "IjVX6KcpQXw", link: "https://www.youtube.com/watch?v=IjVX6KcpQXw&list=PLgqtKVxUxe2oLTfZrTToJtdwZZdf3u4xt" },
+      { id: 19, title: "دروس متنوعة في مسجد", ytId: "C55PUEFj7sQ", link: "https://www.youtube.com/watch?v=C55PUEFj7sQ&list=PLgqtKVxUxe2qH855wI2B1_DG-zLMnU1-7" },
+      { id: 20, title: "مقتطفات", ytId: "8VBrs2Kdkh8", link: "https://www.youtube.com/watch?v=8VBrs2Kdkh8&list=PLgqtKVxUxe2rxRNSdVIlpEHqO269zFkoH" },
+      { id: 21, title: "برنامج إشاعة", ytId: "CxhllBJCe3Q", link: "https://www.youtube.com/watch?v=CxhllBJCe3Q&list=PLgqtKVxUxe2rQAkAOu_zXwYnGl_QIfgvc" },
+      { id: 22, title: "نصف جنة", ytId: "VXYNrLDV5Ok", link: "https://www.youtube.com/watch?v=VXYNrLDV5Ok&list=PLgqtKVxUxe2rjAGzEJidKWwvOxt37h4h4" },
+      { id: 23, title: "برنامج ترجمة", ytId: "IFur0q4tpOA", link: "https://www.youtube.com/watch?v=IFur0q4tpOA&list=PLgqtKVxUxe2oGUV7Gcxw3XbJFJIPiqjb5" },
+      { id: 24, title: "عالسكة", ytId: "SQ0iHr8zkwY", link: "https://www.youtube.com/watch?v=SQ0iHr8zkwY&list=PLgqtKVxUxe2okca_GGuw0lhSH9gqfm0Xi" },
+      { id: 25, title: "كتابك رمضان 1440", ytId: "vZ5UEB1E42s", link: "https://www.youtube.com/watch?v=vZ5UEB1E42s&list=PLgqtKVxUxe2qvIstyXOFumOVzbGXmmluJ" },
+      { id: 26, title: "كل يوم أية رمضان 1442", ytId: "tHvfqbfQuXg", link: "https://www.youtube.com/watch?v=tHvfqbfQuXg&list=PLgqtKVxUxe2qJODDwEX6LA3-euaMbQb7Y" },
+      { id: 27, title: "الخلاصة رمضان 1443", ytId: "LknQRxG4m48", link: "https://www.youtube.com/watch?v=LknQRxG4m48&list=PLgqtKVxUxe2qMuTpcOx6QzflCUtFy3_7e" },
+      { id: 28, title: "حج بقلبك", ytId: "pzBeVz9fmq4", link: "https://www.youtube.com/watch?v=pzBeVz9fmq4&list=PLgqtKVxUxe2rbWcX1Whqc369j0TUlnBzp" },
+      { id: 29, title: "كل يوم أية 1447", ytId: "J7H22epB4qA", link: "https://www.youtube.com/watch?v=J7H22epB4qA&list=PLgqtKVxUxe2q6TjHDXh1NIc-Xc2UNflfL" },
+      { id: 30, title: "برنامج عايشين 1436", ytId: "5t4N4km1qoA", link: "https://www.youtube.com/watch?v=5t4N4km1qoA&list=PLgqtKVxUxe2pfdFS1iYIMEqSkVgmdRx5E" }
+    ];
+
+    const accountabilitySchema = [
+      {
+        category: "الفجر",
+        tasks: [
+          { id: "fajr_azkar_waking", title: "أذكار الاستيقاظ", points: 2, hasInfo: true },
+          { id: "fajr_sunnah", title: "السنة القبلية", points: 2, hasInfo: false },
+          { id: "fajr_jamaa", title: "الجماعة الأولى", points: 2, hasInfo: false },
+          { id: "fajr_azkar_post", title: "أذكار بعد الصلاة", points: 2, hasInfo: true },
+          { id: "fajr_sabah", title: "أذكار الصباح", points: 2, hasInfo: true },
+          { id: "duha_4", title: "الضحى ٤ ركعات", points: 2, hasInfo: false }
+        ]
+      },
+      {
+        category: "الظهر",
+        tasks: [
+          { id: "dhuhr_sunnah_pre", title: "السنة القبلية ٤ ركعات", points: 2, hasInfo: false },
+          { id: "dhuhr_jamaa", title: "الجماعة الأولى", points: 2, hasInfo: false },
+          { id: "dhuhr_azkar_post", title: "أذكار بعد الصلاة", points: 2, hasInfo: true },
+          { id: "dhuhr_sunnah_post", title: "السنة البعدية", points: 2, hasInfo: false }
+        ]
+      },
+      {
+        category: "العصر",
+        tasks: [
+          { id: "asr_jamaa", title: "الجماعة الأولى", points: 2, hasInfo: false },
+          { id: "asr_azkar_post", title: "أذكار بعد الصلاة", points: 2, hasInfo: true },
+          { id: "asr_masaa", title: "أذكار المساء", points: 2, hasInfo: true }
+        ]
+      },
+      {
+        category: "المغرب",
+        tasks: [
+          { id: "maghrib_jamaa", title: "الجماعة الأولى", points: 2, hasInfo: false },
+          { id: "maghrib_azkar_post", title: "أذكار بعد الصلاة", points: 2, hasInfo: true },
+          { id: "maghrib_sunnah_post", title: "السنة البعدية", points: 2, hasInfo: false }
+        ]
+      },
+      {
+        category: "العشاء",
+        tasks: [
+          { id: "isha_jamaa", title: "الجماعة الأولى", points: 2, hasInfo: false },
+          { id: "isha_azkar_post", title: "أذكار بعد الصلاة", points: 2, hasInfo: true },
+          { id: "isha_sunnah_post", title: "السنة البعدية", points: 2, hasInfo: false }
+        ]
+      },
+      {
+        category: "قيام الليل والوتر",
+        tasks: [
+          { id: "qiyam_2", title: "ركعتان قيام ليل", points: 4, hasInfo: false },
+          { id: "qiyam_wirid", title: "الورد (ربعين)", points: 4, hasInfo: false },
+          { id: "qiyam_witr", title: "الوتر", points: 1, hasInfo: false }
+        ]
+      },
+      {
+        category: "القرآن والصيام",
+        tasks: [
+          { id: "quran_half_page", title: "حفظ نصف صفحة", points: 2, hasInfo: false },
+          { id: "quran_6_quarters", title: "قراءة ستة أرباع", points: 2, hasInfo: false }
+        ]
+      },
+      {
+        category: "أذكار متنوعة",
+        tasks: [
+          { id: "azkar_khalaa", title: "الخلاء", points: 2, hasInfo: true },
+          { id: "azkar_clothes", title: "لبس الثوب و خلمه", points: 2, hasInfo: true },
+          { id: "azkar_wudhu", title: "الوضوء", points: 2, hasInfo: true },
+          { id: "azkar_home", title: "دخول المنزل والخروج", points: 2, hasInfo: true },
+          { id: "azkar_masjid_enter", title: "المسجد دخول و خروج", points: 2, hasInfo: true },
+          { id: "azkar_masjid_walk", title: "المشي إلى المسجد", points: 2, hasInfo: true }
+        ]
+      }
+    ];
+
+    // ============================================================
+    // 2. Encapsulated State Store
+    // ============================================================
+    class AccountabilityStore {
+      constructor() {
+        this.state = JSON.parse(localStorage.getItem('accountability_pro_state')) || {};
+      }
+
+      toggleTask(taskId) {
+        this.state[taskId] = !this.state[taskId];
+        this.save();
+        return this.state[taskId];
+      }
+
+      isCompleted(taskId) {
+        return !!this.state[taskId];
+      }
+
+      calculateMetrics(schema) {
+        let totalPossible = 0;
+        let earned = 0;
+
+        schema.forEach(cat => {
+          cat.tasks.forEach(t => {
+            totalPossible += t.points;
+            if (this.state[t.id]) earned += t.points;
+          });
+        });
+
+        const percentage = totalPossible > 0 ? Math.round((earned / totalPossible) * 100) : 0;
+        return { earned, totalPossible, percentage };
+      }
+
+      save() {
+        localStorage.setItem('accountability_pro_state', JSON.stringify(this.state));
+      }
+    }
+
+    const accStore = new AccountabilityStore();
+    let watchedSeries = JSON.parse(localStorage.getItem('watchedSeries')) || [];
+
+    // ============================================================
+    // 3. DOM References & Handlers
+    // ============================================================
+    const grid = document.getElementById('seriesGrid');
+    const searchInput = document.getElementById('searchInput');
+    const visibleCountEl = document.getElementById('visibleCount');
+    const totalCountEl = document.getElementById('totalCount');
+    const noResults = document.getElementById('noResults');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+
+    const watchedCountEl = document.getElementById('watchedCount');
+    const totalSeriesCountEl = document.getElementById('totalSeriesCount');
+    const progressFill = document.getElementById('progressFill');
+    const achievementTitle = document.getElementById('achievementTitle');
+
+    const modal = document.getElementById('accountabilityModal');
+    const openModalBtn = document.getElementById('openAccountabilityBtn');
+    const closeModalBtn = document.getElementById('closeAccountabilityBtn');
+
+    const accDashboardApp = document.getElementById('accountabilityDashboardApp');
+    const accProgressBarFill = document.getElementById('accProgressBarFill');
+    const accProgressPercentage = document.getElementById('accProgressPercentage');
+
+    // Abjadiyat Interactive Elements
+    const abjadiyatWrapper = document.getElementById('abjadiyatWrapper');
+    const abjadiyatBtn = document.getElementById('abjadiyatBtn');
+
+    // Sheikh Social Interactive Elements
+    const sheikhSocialWrapper = document.getElementById('sheikhSocialWrapper');
+    const sheikhSocialBtn = document.getElementById('sheikhSocialBtn');
+
+    // ============================================================
+    // 4. UI Rendering Functions
+    // ============================================================
+    const updateAchievements = () => {
+      const count = watchedSeries.length;
+      const total = seriesData.length;
+      const percentage = (count / total) * 100;
+
+      watchedCountEl.textContent = count;
+      totalSeriesCountEl.textContent = total;
+      progressFill.style.width = `${percentage}%`;
+
+      if (count === 0) achievementTitle.textContent = "طالب علم مبتدئ 📖";
+      else if (count <= 7) achievementTitle.textContent = "مستمع مواظب 🌟";
+      else if (count <= 18) achievementTitle.textContent = "جامع الفوائد 💡";
+      else achievementTitle.textContent = "سفير المعرفة 👑";
+    };
+
+    const markAsWatched = (seriesId) => {
+      if (!watchedSeries.includes(seriesId)) {
+        watchedSeries.push(seriesId);
+        localStorage.setItem('watchedSeries', JSON.stringify(watchedSeries));
+        updateAchievements();
+        render(seriesData);
+      }
+    };
+
+    const updateAccProgressUI = () => {
+      const { percentage } = accStore.calculateMetrics(accountabilitySchema);
+      accProgressBarFill.style.width = `${percentage}%`;
+      accProgressPercentage.textContent = `${percentage}%`;
+      accProgressPercentage.style.color = percentage > 50 ? '#10B981' : '#EF4444';
+    };
+
+    const renderAccountabilityDashboard = () => {
+      accDashboardApp.innerHTML = '';
+
+      accountabilitySchema.forEach(cat => {
+        const groupEl = document.createElement('div');
+        groupEl.className = 'acc-category-group';
+
+        const titleEl = document.createElement('h4');
+        titleEl.className = 'acc-category-title';
+        titleEl.textContent = cat.category;
+        groupEl.appendChild(titleEl);
+
+        const cardsGrid = document.createElement('div');
+        cardsGrid.className = 'acc-cards-grid';
+
+        cat.tasks.forEach(task => {
+          const card = document.createElement('div');
+          const isAct = accStore.isCompleted(task.id);
+          card.className = `acc-task-card ${isAct ? 'active' : ''}`;
+          card.innerHTML = `
+            <div class="acc-task-title">${task.title}</div>
+            <div class="acc-task-meta">
+              <span>${task.points}</span>
+              ${task.hasInfo ? '<span class="acc-info-icon">؟</span>' : ''}
+            </div>
+          `;
+
+          card.addEventListener('click', () => {
+            const nowActive = accStore.toggleTask(task.id);
+            card.classList.toggle('active', nowActive);
+            updateAccProgressUI();
+          });
+
+          cardsGrid.appendChild(card);
+        });
+
+        groupEl.appendChild(cardsGrid);
+        accDashboardApp.appendChild(groupEl);
+      });
+
+      updateAccProgressUI();
+    };
+
+    const toggleTheme = () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeUI(newTheme);
+    };
+
+    const updateThemeUI = (theme) => {
+      if (theme === 'light') {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'الوضع النهاري';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'الوضع الليلي';
+      }
+    };
+
+    const normalizeArabic = (str) => str.toString().toLowerCase().replace(/[إأآا]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').replace(/[ًٌٍَُِّْ]/g, '').trim();
+
+    const createSeriesCard = (series) => {
+      const isWatched = watchedSeries.includes(series.id);
+      const card = document.createElement('article');
+      card.className = `series-card ${isWatched ? 'watched' : ''}`;
+      card.innerHTML = `
+        <a href="${series.link}" target="_blank" rel="noopener noreferrer" class="card-link">
+          <div class="card-media">
+            <button class="share-icon" type="button" title="مشاركة">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </button>
+            <span class="play-badge">قائمة تشغيل</span>
+            <img src="https://img.youtube.com/vi/${series.ytId}/hqdefault.jpg" alt="${series.title}" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <div class="card-title-bar">
+              <h3 class="card-title">${series.title}</h3>
+              <span class="card-link-icon">▶</span>
+            </div>
+          </div>
+        </a>
+      `;
+
+      card.querySelector('.card-link').addEventListener('click', () => markAsWatched(series.id));
+
+      card.querySelector('.share-icon').addEventListener('click', async (e) => {
+        e.preventDefault(); e.stopPropagation();
+        if (navigator.share) {
+          await navigator.share({ title: series.title, url: series.link });
+        } else {
+          await navigator.clipboard.writeText(series.link);
+          alert('تم نسخ رابط السلسلة بنجاح!');
+        }
+      });
+
+      return card;
+    };
+
+    const render = (items) => {
+      grid.innerHTML = '';
+      if (items.length === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+        const fragment = document.createDocumentFragment();
+        items.forEach(item => fragment.appendChild(createSeriesCard(item)));
+        grid.appendChild(fragment);
+      }
+      visibleCountEl.textContent = items.length;
+      totalCountEl.textContent = seriesData.length;
+    };
+
+    // ============================================================
+    // 5. Initializations & Boot
+    // ============================================================
+    const initialTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', initialTheme);
+    updateThemeUI(initialTheme);
+    themeToggleBtn.addEventListener('click', toggleTheme);
+
+    // Toggle Abjadiyat Social Links Menu
+    abjadiyatBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sheikhSocialWrapper.classList.remove('open');
+      abjadiyatWrapper.classList.toggle('open');
+    });
+
+    // Toggle Sheikh Social Links Menu in Header
+    sheikhSocialBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      abjadiyatWrapper.classList.remove('open');
+      sheikhSocialWrapper.classList.toggle('open');
+    });
+
+    // Close Dropdowns on outside click
+    document.addEventListener('click', (e) => {
+      if (!abjadiyatWrapper.contains(e.target)) {
+        abjadiyatWrapper.classList.remove('open');
+      }
+      if (!sheikhSocialWrapper.contains(e.target)) {
+        sheikhSocialWrapper.classList.remove('open');
+      }
+    });
+
+    openModalBtn.addEventListener('click', () => {
+      renderAccountabilityDashboard();
+      modal.classList.add('active');
+    });
+
+    closeModalBtn.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+
+    searchInput.addEventListener('input', (e) => {
+      const query = normalizeArabic(e.target.value);
+      render(seriesData.filter(s => normalizeArabic(s.title).includes(query)));
+    });
+
+    document.querySelector('.featured-card').addEventListener('click', () => markAsWatched(17));
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    updateAchievements();
+    render(seriesData);
+  </script>
+</body>
+</html>
