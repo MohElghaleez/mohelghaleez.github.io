@@ -57,7 +57,7 @@
       --text-secondary: #475569;
       --text-muted: #64748B;
       --accent-gold: #B48A16;
-      --search-bg: rgba(255, 255, 255, 0.8);
+      --search-bg: rgba(255, 255, 255, 0.85);
       --search-border: rgba(203, 213, 225, 0.8);
       --glass: rgba(15, 23, 42, 0.06);
       --glass-border: rgba(15, 23, 42, 0.12);
@@ -93,7 +93,7 @@
     .hidden { display: none !important; }
 
     /* ============================================================
-       2. Fixed Sticky Header
+       2. Fixed Sticky Header (معدّل للتجاوب مع الموبايل والتابلت)
        ============================================================ */
     .site-header {
       position: fixed;
@@ -145,7 +145,7 @@
 
     .search-wrapper {
       flex: 1;
-      max-width: 360px;
+      max-width: 380px;
       position: relative;
       margin-inline-start: auto;
     }
@@ -163,11 +163,11 @@
 
     #searchInput {
       width: 100%;
-      padding: 8px 36px 8px 14px;
+      padding: 9px 40px 9px 14px;
       border: 1px solid var(--search-border);
       border-radius: 999px;
       font-family: inherit;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       background: var(--search-bg);
       color: var(--text-white);
       transition: all 0.25s ease;
@@ -184,13 +184,14 @@
       align-items: center;
       gap: 8px;
       position: relative;
+      flex-shrink: 0;
     }
 
     .btn-action {
       background: var(--glass);
       border: 1px solid var(--glass-border);
       color: var(--text-white);
-      padding: 7px 12px;
+      padding: 8px 14px;
       border-radius: 999px;
       cursor: pointer;
       font-family: inherit;
@@ -307,7 +308,7 @@
     }
 
     .abjadiyat-logo-box img { width: 100%; height: 100%; object-fit: contain; }
-    .abjadiyat-compact-text flex: 1;
+    .abjadiyat-compact-text { flex: 1; }
 
     .abjadiyat-compact-text h4 {
       font-size: 0.95rem;
@@ -612,9 +613,34 @@
     .footer-divider { width: 50px; height: 2px; background: var(--accent-gold); margin: 14px auto; border-radius: 2px; }
 
     /* ============================================================
-       6. Mobile Specific Responsive Adjustments (تجاوب الموبايل)
+       6. Mobile & iPad Specific Responsive Layout (تعديل كامل للتجاوب)
        ============================================================ */
     @media (max-width: 1024px) {
+      /* تعديلات الأيباد والشاشات المتوسطة */
+      .header-inner {
+        flex-wrap: wrap;
+        padding: 12px 16px;
+        gap: 12px;
+      }
+
+      .logo { order: 1; }
+      .header-actions { order: 2; margin-inline-start: auto; }
+
+      /* جعل شريط البحث ينزل في سطر مستقل ويمتد بالكامل دون انغلاق */
+      .search-wrapper {
+        order: 3;
+        max-width: 100%;
+        width: 100%;
+        margin-top: 4px;
+        margin-inline-start: 0;
+      }
+
+      #searchInput {
+        padding: 10px 42px 10px 16px;
+        font-size: 0.95rem;
+      }
+
+      .hero { padding-top: 125px; } /* توفير مساحة هيدر سطرين للأيباد والموبايل */
       .series-grid { grid-template-columns: repeat(3, 1fr); }
       .hero-inner { grid-template-columns: 1fr; text-align: center; }
       .hero-header-brand { justify-content: center; }
@@ -624,31 +650,18 @@
     }
 
     @media (max-width: 768px) {
-      /* إحكام الهيدر للموبايل بدون تراكم */
+      /* تعديلات شاشات الهواتف المحمولة */
       .header-inner {
-        padding: 8px 12px;
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: space-between;
+        padding: 10px 14px;
+        gap: 10px;
       }
 
       .logo { gap: 8px; font-size: 0.95rem; }
-      .header-logo-img { height: 32px; padding: 2px 4px; }
-      .logo-text span { display: none; } /* إخفاء النص الفرعي لتوفير المساحة */
+      .header-logo-img { height: 34px; padding: 2px 4px; }
+      .logo-text span { display: none; } /* إخفاء النص الفرعي لإبراز اللوجو */
 
-      .header-actions { gap: 6px; }
-      .btn-action { padding: 6px 10px; font-size: 0.75rem; }
-
-      .search-wrapper {
-        order: 3;
-        max-width: 100%;
-        width: 100%;
-        margin-top: 4px;
-      }
-
-      #searchInput { padding: 7px 32px 7px 12px; font-size: 0.82rem; }
-
-      .hero { padding-top: 105px; } /* مساحة كافية للهيدر المزدوج في الموبايل */
+      .btn-action { padding: 6px 12px; font-size: 0.78rem; }
+      .hero { padding-top: 120px; }
       .series-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
       .acc-cards-grid { grid-template-columns: 1fr; }
       .abjadiyat-social-menu { grid-template-columns: 1fr; }
@@ -656,7 +669,6 @@
 
     @media (max-width: 440px) {
       .series-grid { grid-template-columns: 1fr; }
-      .btn-action span:nth-child(2) { display: inline-block; } /* الحفاظ على الوضوح */
     }
   </style>
 </head>
@@ -715,12 +727,12 @@
 
         <!-- زر التبديل الليلي/النهاري -->
         <button class="btn-action" id="themeToggleBtn" type="button" aria-label="تغيير المظهر">
-          <span id="themeIcon">🌙</span> <span id="themeText">الوضع</span>
+          <span id="themeIcon">🌙</span> <span id="themeText">الليل</span>
         </button>
       </div>
 
       <div class="search-wrapper">
-        <input type="search" id="searchInput" placeholder="🔍 ابحث في السلاسل..." autocomplete="off" />
+        <input type="search" id="searchInput" placeholder="🔍 ابحث في السلاسل العلمية..." autocomplete="off" />
       </div>
     </div>
   </header>
