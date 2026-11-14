@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="مكتبة شاملة لمؤلفات ودروس الشيخ محمد الغليظ - السلاسل العلمية ودورات أبجديات أونلاين وجدول المحاسبة" />
-  <title>محمد الغليظ | مكتبة السلاسل العلمية ودورات أبجديات</title>
+  <title>محمد الغليظ</title>
 
   <!-- أيقونة تبويب المتصفح (Favicon) -->
   <link rel="icon" type="image/png" href="logo.png" />
@@ -122,7 +122,7 @@
       gap: 10px;
       flex-shrink: 0;
       font-weight: 800;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: var(--text-white);
     }
 
@@ -133,13 +133,6 @@
       background: #FFFFFF;
       padding: 3px 6px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    }
-
-    .logo-text span {
-      display: block;
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: var(--text-secondary);
     }
 
     .search-wrapper {
@@ -641,7 +634,6 @@
 
       .logo { gap: 8px; font-size: 0.95rem; }
       .header-logo-img { height: 34px; padding: 2px 4px; }
-      .logo-text span { display: none; }
 
       .btn-action { padding: 6px 12px; font-size: 0.78rem; }
       .hero { padding-top: 120px; }
@@ -660,12 +652,9 @@
   <!-- Fixed Sticky Header -->
   <header class="site-header" role="banner">
     <div class="header-inner">
-      <a href="#" class="logo" aria-label="الشيخ محمد الغليظ">
+      <a href="#" class="logo" aria-label="محمد الغليظ">
         <img src="logo.png" alt="لوجو محمد الغليظ" class="header-logo-img" />
-        <span class="logo-text">
-          محمد الغليظ
-          <span>مكتبة السلاسل العلمية</span>
-        </span>
+        <span class="logo-text">محمد الغليظ</span>
       </a>
 
       <div class="header-actions">
@@ -779,10 +768,10 @@
         </div>
       </div>
 
-      <!-- البطاقة البارزة المستقلة لأحدث حلقة في القناة (تتحدث تلقائياً من RSS ولا تتكرر بالأسفل) -->
+      <!-- البطاقة البارزة المستقلة لأحدث حلقة طويلة في القناة (تتحدث تلقائياً من RSS ولا تتكرر بالأسفل) -->
       <a href="https://www.youtube.com/watch?v=XwyH4Y2JocI" target="_blank" rel="noopener noreferrer" class="featured-card" aria-label="شاهد أحدث حلقة">
         <div class="featured-media">
-          <img src="https://img.youtube.com/vi/XwyH4Y2JocI/hqdefault.jpg" alt="(32) سر صلاح الأبناء | سلسلة كلمات" loading="lazy" />
+          <img src="https://i.ytimg.com/vi/XwyH4Y2JocI/hqdefault.jpg" alt="(32) سر صلاح الأبناء | سلسلة كلمات" loading="lazy" />
           <span class="featured-label">🆕 نازل حديثاً</span>
         </div>
         <div class="featured-body">
@@ -835,10 +824,10 @@
 
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
-      <div class="footer-logo">📖 محمد الغليظ — مكتبة السلاسل العلمية ودورات أبجديات</div>
+      <div class="footer-logo">📖 محمد الغليظ</div>
       <div class="footer-divider"></div>
       <p class="footer-text">نسأل الله أن ينفع بهذا العلم صاحبه وجميع المتعلمين.</p>
-      <p class="footer-copy">© <span id="year"></span> مكتبة الشيخ محمد الغليظ — جميع الحقوق محفوظة</p>
+      <p class="footer-copy">© <span id="year"></span> محمد الغليظ — جميع الحقوق محفوظة</p>
     </div>
   </footer>
 
@@ -1024,7 +1013,7 @@
     const sheikhSocialWrapper = document.getElementById('sheikhSocialWrapper');
     const sheikhSocialBtn = document.getElementById('sheikhSocialBtn');
 
- // ============================================================
+    // ============================================================
     // 4. Auto-Fetch Latest LONG Video ONLY (استبعاد Shorts تلقائياً)
     // ============================================================
     const CHANNEL_HANDLE_URL = 'https://www.youtube.com/@mohelghaleez';
@@ -1064,7 +1053,6 @@
 
     async function fetchLatestSeriesVideo() {
       try {
-        // فحص الكاش لمدة 15 دقيقة
         const cached = JSON.parse(localStorage.getItem('latest_yt_long_hero_v1'));
         const fifteenMins = 15 * 60 * 1000;
         if (cached && (Date.now() - cached.timestamp < fifteenMins)) {
@@ -1073,7 +1061,7 @@
         }
 
         const channelId = await getChannelIdFromHandle();
-        
+
         // تحويل UC إلى UULF لجلب الفيديوهات الطويلة فقط واستبعاد Shorts تماماً
         const longVideosPlaylistId = 'UULF' + channelId.slice(2);
         const ytRssUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${longVideosPlaylistId}`;
@@ -1110,6 +1098,7 @@
         console.warn('تعذر التحديث التلقائي، تم الإبقاء على آخر حلقة محفوظة:', error);
       }
     }
+
     // ============================================================
     // 5. UI Rendering Functions
     // ============================================================
@@ -1301,9 +1290,6 @@
     });
 
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // مسح الكاش القديم الخاص بالنسخة السابقة لضمان عدم وجود بقايا
-    localStorage.removeItem('latest_yt_video_cache');
 
     updateAchievements();
     render(seriesData);
