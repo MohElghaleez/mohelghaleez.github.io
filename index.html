@@ -36,7 +36,6 @@
       --footer-bg: #070A12;
       --badge-bg: rgba(10, 14, 23, 0.85);
 
-      /* متغيّرات تصميم جدول المحاسبة المتقدم */
       --acc-container-bg: #0d1322;
       --acc-card-bg: #1e101a;
       --acc-card-border: #581c24;
@@ -93,7 +92,7 @@
     .hidden { display: none !important; }
 
     /* ============================================================
-       2. Fixed Sticky Header (معدّل للتجاوب مع الموبايل والتابلت)
+       2. Fixed Sticky Header
        ============================================================ */
     .site-header {
       position: fixed;
@@ -204,11 +203,8 @@
       white-space: nowrap;
     }
 
-    .btn-action:hover {
-      border-color: var(--accent-gold);
-    }
+    .btn-action:hover { border-color: var(--accent-gold); }
 
-    /* قائمة التواصل مع الشيخ المنبثقة */
     .sheikh-social-menu {
       display: none;
       position: absolute;
@@ -273,7 +269,6 @@
     .hero-name { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900; line-height: 1.1; }
     .hero-subtitle { font-size: clamp(0.95rem, 1.8vw, 1.1rem); color: var(--text-secondary); margin-bottom: 18px; }
 
-    /* بطاقة أبجديات التفاعلية */
     .abjadiyat-interactive-wrapper {
       position: relative;
       margin-bottom: 18px;
@@ -309,14 +304,7 @@
 
     .abjadiyat-logo-box img { width: 100%; height: 100%; object-fit: contain; }
     .abjadiyat-compact-text { flex: 1; }
-
-    .abjadiyat-compact-text h4 {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--accent-gold);
-      line-height: 1.2;
-    }
-
+    .abjadiyat-compact-text h4 { font-size: 0.95rem; font-weight: 800; color: var(--accent-gold); line-height: 1.2; }
     .abjadiyat-compact-text p { font-size: 0.78rem; color: var(--text-secondary); }
     .abjadiyat-arrow-icon { font-size: 0.85rem; color: var(--accent-gold); transition: transform 0.3s ease; }
 
@@ -370,7 +358,6 @@
       margin-bottom: 20px;
     }
 
-    /* Achievement Bar */
     .achievement-card {
       background: var(--glass);
       border: 1px solid var(--glass-border);
@@ -404,14 +391,14 @@
       transition: width 0.4s ease;
     }
 
-    /* Featured Card */
+    /* Featured Card (خانة نازل حديثاً المستقلة) */
     .featured-card {
-      width: 320px;
+      width: 340px;
       background: var(--card-bg);
       border-radius: var(--radius-lg);
       overflow: hidden;
-      border: 1px solid var(--card-border);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      border: 1.5px solid var(--accent-gold);
+      box-shadow: 0 20px 50px rgba(212, 175, 55, 0.12);
       position: relative;
       transition: transform 0.35s ease;
       display: block;
@@ -425,18 +412,17 @@
       position: absolute;
       top: 10px;
       right: 10px;
-      background: var(--badge-bg);
-      backdrop-filter: blur(4px);
-      color: var(--accent-gold);
-      padding: 4px 10px;
+      background: linear-gradient(135deg, #D4AF37, #B48A16);
+      color: #0A0E17;
+      padding: 4px 12px;
       border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      border: 1px solid var(--glass-border);
+      font-size: 0.78rem;
+      font-weight: 900;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .featured-body { padding: 18px; text-align: center; }
-    .featured-title { font-size: 1.35rem; font-weight: 800; color: var(--text-white); margin-bottom: 14px; }
+    .featured-title { font-size: 1.15rem; font-weight: 800; color: var(--text-white); margin-bottom: 14px; line-height: 1.45; }
 
     .cta-button {
       display: inline-flex;
@@ -504,7 +490,7 @@
     }
 
     .card-title-bar { background: var(--card-bg); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; border-top: 1px solid var(--card-border); }
-    .card-title { font-size: 1.05rem; font-weight: 800; color: var(--text-white); flex: 1; }
+    .card-title { font-size: 1.02rem; font-weight: 800; color: var(--text-white); flex: 1; }
 
     .no-results {
       text-align: center;
@@ -613,10 +599,9 @@
     .footer-divider { width: 50px; height: 2px; background: var(--accent-gold); margin: 14px auto; border-radius: 2px; }
 
     /* ============================================================
-       6. Mobile & iPad Specific Responsive Layout (تعديل كامل للتجاوب)
+       6. Mobile & iPad Specific Responsive Layout
        ============================================================ */
     @media (max-width: 1024px) {
-      /* تعديلات الأيباد والشاشات المتوسطة */
       .header-inner {
         flex-wrap: wrap;
         padding: 12px 16px;
@@ -626,7 +611,6 @@
       .logo { order: 1; }
       .header-actions { order: 2; margin-inline-start: auto; }
 
-      /* جعل شريط البحث ينزل في سطر مستقل ويمتد بالكامل دون انغلاق */
       .search-wrapper {
         order: 3;
         max-width: 100%;
@@ -640,7 +624,7 @@
         font-size: 0.95rem;
       }
 
-      .hero { padding-top: 125px; } /* توفير مساحة هيدر سطرين للأيباد والموبايل */
+      .hero { padding-top: 125px; }
       .series-grid { grid-template-columns: repeat(3, 1fr); }
       .hero-inner { grid-template-columns: 1fr; text-align: center; }
       .hero-header-brand { justify-content: center; }
@@ -650,7 +634,6 @@
     }
 
     @media (max-width: 768px) {
-      /* تعديلات شاشات الهواتف المحمولة */
       .header-inner {
         padding: 10px 14px;
         gap: 10px;
@@ -658,7 +641,7 @@
 
       .logo { gap: 8px; font-size: 0.95rem; }
       .header-logo-img { height: 34px; padding: 2px 4px; }
-      .logo-text span { display: none; } /* إخفاء النص الفرعي لإبراز اللوجو */
+      .logo-text span { display: none; }
 
       .btn-action { padding: 6px 12px; font-size: 0.78rem; }
       .hero { padding-top: 120px; }
@@ -732,7 +715,7 @@
       </div>
 
       <div class="search-wrapper">
-        <input type="search" id="searchInput" placeholder="🔍 ابحث في السلاسل العلمية..." autocomplete="off" />
+        <input type="search" id="searchInput" placeholder="ابحث في السلاسل العلمية..." autocomplete="off" />
       </div>
     </div>
   </header>
@@ -760,7 +743,6 @@
             <span class="abjadiyat-arrow-icon">▼</span>
           </div>
 
-          <!-- القائمة المنبثقة للروابط -->
           <div class="abjadiyat-social-menu">
             <a href="https://facebook.com/AbgdOnline" target="_blank" rel="noopener noreferrer" class="social-link-item">
               <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -797,20 +779,21 @@
         </div>
       </div>
 
-      <a href="https://www.youtube.com/watch?v=aDC8gZf9YpE&list=PLgqtKVxUxe2pzPJogmu7pKQATSI4eIBAb" target="_blank" rel="noopener noreferrer" class="featured-card" data-id="17" aria-label="ابدأ سلسلة كلمات">
+      <!-- البطاقة البارزة المستقلة لأحدث حلقة في القناة (تتحدث تلقائياً من RSS ولا تتكرر بالأسفل) -->
+      <a href="https://www.youtube.com/watch?v=XwyH4Y2JocI" target="_blank" rel="noopener noreferrer" class="featured-card" aria-label="شاهد أحدث حلقة">
         <div class="featured-media">
-          <img src="https://img.youtube.com/vi/aDC8gZf9YpE/hqdefault.jpg" alt="سلسلة كلمات" loading="lazy" />
-          <span class="featured-label">✨ أحدث السلاسل</span>
+          <img src="https://img.youtube.com/vi/XwyH4Y2JocI/hqdefault.jpg" alt="(32) سر صلاح الأبناء | سلسلة كلمات" loading="lazy" />
+          <span class="featured-label">🆕 نازل حديثاً</span>
         </div>
         <div class="featured-body">
-          <h2 class="featured-title">كلمات</h2>
-          <span class="cta-button">📖 ابدأ السلسلة</span>
+          <h2 class="featured-title">(32) سر صلاح الأبناء | سلسلة كلمات</h2>
+          <span class="cta-button">📖 شاهد الحلقة الآن</span>
         </div>
       </a>
     </div>
   </section>
 
-  <!-- Main Content -->
+  <!-- Main Content (السلاسل الـ 30 الأصلية بدون تكرار) -->
   <main class="main-section">
     <div class="section-header">
       <h2 class="section-title">السلاسل العلمية</h2>
@@ -821,14 +804,14 @@
 
     <div class="series-grid" id="seriesGrid" role="list"></div>
 
-    <!-- رسالة عدم وجود نتائج (مخفية تلقائياً) -->
+    <!-- رسالة عدم وجود نتائج -->
     <div class="no-results hidden" id="noResults">
       <h3>لا توجد نتائج مطابقة</h3>
       <p>لم نعثر على سلاسل تطابق بحثك. جرّب البحث بكلمة أخرى.</p>
     </div>
   </main>
 
-  <!-- Dashboard Modal (جدول المحاسبة اليومي الاحترافي) -->
+  <!-- Dashboard Modal -->
   <div class="modal-overlay" id="accountabilityModal">
     <div class="modal-card-dashboard">
       <div class="modal-header">
@@ -836,7 +819,6 @@
         <button class="close-modal" id="closeAccountabilityBtn">&times;</button>
       </div>
 
-      <!-- مؤشر إجمالي التقدم -->
       <div class="acc-progress-box">
         <div class="acc-progress-header">
           <span class="acc-percentage" id="accProgressPercentage">0%</span>
@@ -847,7 +829,6 @@
         </div>
       </div>
 
-      <!-- الحاوية الديناميكية لبطاقات المحاسبة -->
       <div id="accountabilityDashboardApp"></div>
     </div>
   </div>
@@ -863,7 +844,7 @@
 
   <script>
     // ============================================================
-    // 1. Data Schema
+    // 1. Data Schema (السلاسل الـ 30 الأصلية فقط بدون تكرار)
     // ============================================================
     const seriesData = [
       { id: 17, title: "كلمات", ytId: "aDC8gZf9YpE", link: "https://www.youtube.com/watch?v=aDC8gZf9YpE&list=PLgqtKVxUxe2pzPJogmu7pKQATSI4eIBAb" },
@@ -1043,8 +1024,94 @@
     const sheikhSocialWrapper = document.getElementById('sheikhSocialWrapper');
     const sheikhSocialBtn = document.getElementById('sheikhSocialBtn');
 
+ // ============================================================
+    // 4. Auto-Fetch Latest LONG Video ONLY (استبعاد Shorts تلقائياً)
     // ============================================================
-    // 4. UI Rendering Functions
+    const CHANNEL_HANDLE_URL = 'https://www.youtube.com/@mohelghaleez';
+
+    function applyLatestVideoToHeroOnly(video) {
+      const featuredCard = document.querySelector('.featured-card');
+      if (!featuredCard || !video || !video.ytId) return;
+
+      featuredCard.href = `https://www.youtube.com/watch?v=${video.ytId}`;
+      featuredCard.setAttribute('aria-label', `شاهد ${video.title}`);
+
+      const img = featuredCard.querySelector('img');
+      img.src = `https://i.ytimg.com/vi/${video.ytId}/hqdefault.jpg`;
+      img.alt = video.title;
+
+      featuredCard.querySelector('.featured-title').textContent = video.title;
+    }
+
+    async function getChannelIdFromHandle() {
+      const savedId = localStorage.getItem('mohelghaleez_channel_id');
+      if (savedId && savedId.startsWith('UC')) return savedId;
+
+      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(CHANNEL_HANDLE_URL)}`;
+      const res = await fetch(proxyUrl);
+      const data = await res.json();
+      const html = data.contents || '';
+
+      const match = html.match(/"channelId":"(UC[a-zA-Z0-9_-]{22})"/) ||
+                    html.match(/channel_id=(UC[a-zA-Z0-9_-]{22})/);
+
+      if (match && match[1]) {
+        localStorage.setItem('mohelghaleez_channel_id', match[1]);
+        return match[1];
+      }
+      throw new Error('لم يتم العثور على معرف القناة');
+    }
+
+    async function fetchLatestSeriesVideo() {
+      try {
+        // فحص الكاش لمدة 15 دقيقة
+        const cached = JSON.parse(localStorage.getItem('latest_yt_long_hero_v1'));
+        const fifteenMins = 15 * 60 * 1000;
+        if (cached && (Date.now() - cached.timestamp < fifteenMins)) {
+          applyLatestVideoToHeroOnly(cached.video);
+          return;
+        }
+
+        const channelId = await getChannelIdFromHandle();
+        
+        // تحويل UC إلى UULF لجلب الفيديوهات الطويلة فقط واستبعاد Shorts تماماً
+        const longVideosPlaylistId = 'UULF' + channelId.slice(2);
+        const ytRssUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${longVideosPlaylistId}`;
+        const proxyRss = `https://api.allorigins.win/get?url=${encodeURIComponent(ytRssUrl)}`;
+
+        const res = await fetch(proxyRss);
+        const data = await res.json();
+
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+        const entries = Array.from(xmlDoc.querySelectorAll('entry'));
+
+        // فلترة إضافية للأمان: تجاهل أي عنوان يحتوي على #shorts
+        const latestLongEntry = entries.find(entry => {
+          const title = (entry.querySelector('title')?.textContent || '').toLowerCase();
+          return !title.includes('#shorts') && !title.includes('#short');
+        });
+
+        if (latestLongEntry) {
+          const videoId = latestLongEntry.getElementsByTagName('yt:videoId')[0]?.textContent ||
+                          latestLongEntry.querySelector('id')?.textContent.split(':').pop();
+          const title = latestLongEntry.querySelector('title')?.textContent;
+
+          if (videoId && title) {
+            const videoObj = { ytId: videoId, title: title };
+            localStorage.setItem('latest_yt_long_hero_v1', JSON.stringify({
+              timestamp: Date.now(),
+              video: videoObj
+            }));
+            applyLatestVideoToHeroOnly(videoObj);
+          }
+        }
+      } catch (error) {
+        console.warn('تعذر التحديث التلقائي، تم الإبقاء على آخر حلقة محفوظة:', error);
+      }
+    }
+    // ============================================================
+    // 5. UI Rendering Functions
     // ============================================================
     const updateAchievements = () => {
       const count = watchedSeries.length;
@@ -1192,7 +1259,7 @@
     };
 
     // ============================================================
-    // 5. Initializations & Boot
+    // 6. Initializations & Boot
     // ============================================================
     const initialTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', initialTheme);
@@ -1233,11 +1300,14 @@
       render(seriesData.filter(s => normalizeArabic(s.title).includes(query)));
     });
 
-    document.querySelector('.featured-card').addEventListener('click', () => markAsWatched(17));
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // مسح الكاش القديم الخاص بالنسخة السابقة لضمان عدم وجود بقايا
+    localStorage.removeItem('latest_yt_video_cache');
 
     updateAchievements();
     render(seriesData);
+    fetchLatestSeriesVideo();
   </script>
 </body>
 </html>
